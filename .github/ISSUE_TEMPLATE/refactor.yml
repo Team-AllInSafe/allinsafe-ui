@@ -1,12 +1,3 @@
----
-name: Refactor
-about: 리팩토링
-title: ''
-labels: refactor
-assignees: ''
-
----
-
 name: "🛠️ Refactor"
 description: "리팩토링"
 labels: ["refactor"]
