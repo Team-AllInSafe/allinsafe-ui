@@ -1,12 +1,3 @@
----
-name: Bug
-about: 버그 제보
-title: ''
-labels: bug
-assignees: ''
-
----
-
 name: "🐞 BUG"
 description: "버그 제보"
 labels: ["bug"]

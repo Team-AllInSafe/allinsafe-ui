@@ -1,20 +1,11 @@
----
-name: Refactor
-about: 리팩토링
-title: ''
-labels: refactor
-assignees: ''
-
----
-
-name: "🛠️ Refactor"
-description: "리팩토링"
-labels: ["refactor"]
+name: "🚀 deploy"
+description: "배포 관련 작업"
+labels: ["deploy"]
 body:
   - type: textarea
     attributes:
       label: 📄 설명
-      description: 새로운 기능에 대한 설명을 작성해 주세요.
+      description: 배포에 대한 설명을 작성해 주세요.
       placeholder: 자세히 적을수록 좋습니다!
     validations:
       required: true
