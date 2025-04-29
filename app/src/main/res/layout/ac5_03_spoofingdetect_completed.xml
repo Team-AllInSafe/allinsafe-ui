@@ -30,6 +30,7 @@
         android:layout_marginRight="20dp"
         android:orientation="horizontal">
         <LinearLayout
+            android:id="@+id/arp_bg"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -46,6 +47,7 @@
                 android:textColor="@color/background"
                 android:gravity="center"/>
             <TextView
+                android:id="@+id/arp_text"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:text="detect_init"
@@ -54,6 +56,7 @@
                 android:gravity="center"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/dns_view"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -64,12 +67,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="ARP"
+                android:text="DNS"
                 android:textStyle="bold"
                 android:textSize="25dp"
                 android:textColor="@color/background"
                 android:gravity="center"/>
             <TextView
+                android:id="@+id/dns_text"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:text="detect_init"
@@ -79,6 +83,7 @@
         </LinearLayout>
     </LinearLayout>
     <TextView
+        android:id="@+id/btn_show_detect_history"
         style="@style/btn_bottom_main"
         android:text="과거 탐지 기록 살펴보기"/>
     <TextView

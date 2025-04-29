@@ -20,7 +20,7 @@
         android:layout_weight="1"
         style="@style/text_background"/>
     <TextView
-        android:id="@+id/applock_setting"
+        android:id="@+id/btn_vpn_stop"
         android:text="vpn 기능 비활성화하기"
         style="@style/btn_bottom_main"
         android:textColor="@color/ui_beige"

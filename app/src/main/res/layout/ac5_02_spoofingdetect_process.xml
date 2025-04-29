@@ -28,6 +28,7 @@
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_gravity="center"
+        android:indeterminate="true"
         style="@style/Widget.AppCompat.ProgressBar"
         android:progressDrawable="@drawable/bar_progress"
         android:progressTint="@color/ui_green"/>
@@ -46,6 +47,7 @@
         android:background="@drawable/btn_round_blue"
         android:layout_margin="20dp">
         <TextView
+            android:id="@+id/textview_process"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="20dp"

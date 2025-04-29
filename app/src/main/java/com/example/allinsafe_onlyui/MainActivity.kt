@@ -19,7 +19,6 @@ class MainActivity : ComponentActivity() {
     private lateinit var binding:Ac001MainInitMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         binding=Ac001MainInitMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.spoofingDetectButton.setOnClickListener {
