@@ -1,12 +1,3 @@
----
-name: Deploy
-about: 배포 관련 작
-title: ''
-labels: deploy
-assignees: ''
-
----
-
 name: "🚀 deploy"
 description: "배포 관련 작업"
 labels: ["deploy"]
