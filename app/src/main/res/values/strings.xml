@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AllinSafe_onlyUI</string>
+    <string name="app_name">allinsafe_ui</string>
     <string name="main_spoofing_warning">dns 또는 arp 스푸핑이 감지됨</string>
     <string name="applock_init_background">앱 잠금 기능을 활성화 하여 소중한 정보를 보호하세요</string>
     <string name="applock_quit_question_title">앱 잠금 설정 화면에서 나가시겠습니까?</string>
