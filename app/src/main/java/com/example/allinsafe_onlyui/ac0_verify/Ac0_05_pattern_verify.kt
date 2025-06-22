@@ -10,7 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-class Ac0_04_pattern_verify : ComponentActivity() {
+class Ac0_05_pattern_verify : ComponentActivity() {
     private lateinit var binding: Ac004PatternVerifyBinding
     private lateinit var patternView: PatternLockView
     private lateinit var auth: FirebaseAuth
@@ -20,6 +20,7 @@ class Ac0_04_pattern_verify : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=Ac004PatternVerifyBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         // Firebase 초기화
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
@@ -29,35 +30,37 @@ class Ac0_04_pattern_verify : ComponentActivity() {
 
         patternView.setOnPatternListener(object : PatternLockView.OnPatternListener {
             override fun onPatternComplete(pattern: List<Int>) {
-                    verifyPattern(pattern)
+                verifyPattern(pattern)
+                //여기 finish를 넣으면 인증 성공 여부와 무관하게 그냥 종료됩니다.
+                //finish()
             }
         })
         //checkExistingPattern()
     }
-    private fun checkExistingPattern() {
-        currentUserId?.let { userId ->
-            lifecycleScope.launch {
-                try {
-                    val document = firestore.collection("User").document(userId).get().await()
-                    val patternData = document.get("pattern") as? List<*>
-
-                    if (patternData != null && patternData.isNotEmpty()) {
-                        val hasPattern = patternData[0] as? Boolean ?: false
-                        isSettingMode = !hasPattern
-
-                        if (isSettingMode) {
-                            Toast.makeText(this@Ac0_04_pattern_verify, "새 패턴을 설정하세요", Toast.LENGTH_LONG).show()
-                        } else {
-                            Toast.makeText(this@Ac0_04_pattern_verify, "패턴을 입력하여 인증하세요", Toast.LENGTH_SHORT).show()
-                            Toast.makeText(this@Ac0_04_pattern_verify," ",Toast.LENGTH_SHORT)
-                        }
-                    }
-                } catch (e: Exception) {
-                    Toast.makeText(this@Ac0_04_pattern_verify, "데이터 로드 실패: ${e.message}", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }
+//    private fun checkExistingPattern() {
+//        currentUserId?.let { userId ->
+//            lifecycleScope.launch {
+//                try {
+//                    val document = firestore.collection("User").document(userId).get().await()
+//                    val patternData = document.get("pattern") as? List<*>
+//
+//                    if (patternData != null && patternData.isNotEmpty()) {
+//                        val hasPattern = patternData[0] as? Boolean ?: false
+//                        isSettingMode = !hasPattern
+//
+//                        if (isSettingMode) {
+//                            Toast.makeText(this@Ac0_05_pattern_verify, "새 패턴을 설정하세요", Toast.LENGTH_LONG).show()
+//                        } else {
+//                            Toast.makeText(this@Ac0_05_pattern_verify, "패턴을 입력하여 인증하세요", Toast.LENGTH_SHORT).show()
+//                            Toast.makeText(this@Ac0_05_pattern_verify," ",Toast.LENGTH_SHORT)
+//                        }
+//                    }
+//                } catch (e: Exception) {
+//                    Toast.makeText(this@Ac0_05_pattern_verify, "데이터 로드 실패: ${e.message}", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        }
+//    }
     private fun verifyPattern(inputPattern: List<Int>) {
         currentUserId?.let { userId ->
             lifecycleScope.launch {
@@ -69,7 +72,7 @@ class Ac0_04_pattern_verify : ComponentActivity() {
                         val hasPattern = patternData[0] == 1L
 
                         if (!hasPattern) {
-                            Toast.makeText(this@Ac0_04_pattern_verify, "설정된 패턴이 없습니다", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@Ac0_05_pattern_verify, "설정된 패턴이 없습니다", Toast.LENGTH_SHORT).show()
                             return@launch
                         }
 
@@ -92,17 +95,18 @@ class Ac0_04_pattern_verify : ComponentActivity() {
 
                         // 패턴 비교
                         if (inputPattern == savedPattern) {
-                            Toast.makeText(this@Ac0_04_pattern_verify, "패턴 인증 성공!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@Ac0_05_pattern_verify, "패턴 인증 성공!", Toast.LENGTH_SHORT).show()
                             // 여기서 다음 화면으로 이동하거나 추가 작업 수행
+                            finish()
                         } else {
-                            Toast.makeText(this@Ac0_04_pattern_verify, "잘못된 패턴입니다", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@Ac0_05_pattern_verify, "잘못된 패턴입니다", Toast.LENGTH_SHORT).show()
                         }
                     }
 
                     patternView.clearPattern()
 
                 } catch (e: Exception) {
-                    Toast.makeText(this@Ac0_04_pattern_verify, "패턴 검증 실패: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@Ac0_05_pattern_verify, "패턴 검증 실패: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }

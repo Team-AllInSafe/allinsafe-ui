@@ -12,8 +12,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import java.util.Arrays
 
-class Ac0_03_pattern_setup : ComponentActivity() {
+class Ac0_04_pattern_setup : ComponentActivity() {
 private lateinit var binding: Ac003PatternCreateBinding
     private lateinit var patternView: PatternLockView
     private lateinit var auth: FirebaseAuth
@@ -37,11 +38,13 @@ private lateinit var binding: Ac003PatternCreateBinding
         // 패턴 입력 완료 리스너 설정
         patternView.setOnPatternListener(object : PatternLockView.OnPatternListener {
             override fun onPatternComplete(pattern: List<Int>) {
-                if (isSettingMode) {
-                    setPattern(pattern)
-                } else {
-                    verifyPattern(pattern)
-                }
+//                if (isSettingMode) {
+//                    setPattern(pattern)
+//                } else {
+//                    verifyPattern(pattern)
+//                }
+                setPattern(pattern)
+                finish()
             }
         })
 
@@ -61,14 +64,14 @@ private lateinit var binding: Ac003PatternCreateBinding
                         isSettingMode = !hasPattern
 
                         if (isSettingMode) {
-                            Toast.makeText(this@Ac0_03_pattern_setup, "새 패턴을 설정하세요", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this@Ac0_04_pattern_setup, "새 패턴을 설정하세요", Toast.LENGTH_LONG).show()
                         } else {
-                            Toast.makeText(this@Ac0_03_pattern_setup, "패턴을 입력하여 인증하세요", Toast.LENGTH_SHORT).show()
-                            Toast.makeText(this@Ac0_03_pattern_setup," ",Toast.LENGTH_SHORT)
+                            Toast.makeText(this@Ac0_04_pattern_setup, "패턴을 입력하여 인증하세요", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@Ac0_04_pattern_setup," ",Toast.LENGTH_SHORT)
                         }
                     }
                 } catch (e: Exception) {
-                    Toast.makeText(this@Ac0_03_pattern_setup, "데이터 로드 실패: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@Ac0_04_pattern_setup, "데이터 로드 실패: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -78,7 +81,7 @@ private lateinit var binding: Ac003PatternCreateBinding
         currentUserId?.let { userId ->
             lifecycleScope.launch {
                 try {
-                    // 패턴 데이터 생성 (인덱스 0: true, 나머지: 방문 순서)
+                    // 패턴 데이터 생성 (인덱스 0: true, 나머지: ,./방문 순서)
                     val patternData = MutableList(17) { 0 } // 인덱스 0 + 16개 점
                     patternData[0] = 1 // boolean true를 1로 표현
 
@@ -91,21 +94,25 @@ private lateinit var binding: Ac003PatternCreateBinding
                     firestore.collection("User").document(userId)
                         .update("pattern", patternData)
                         .await()
-
+                    //pin 초기화
+                    val pinArray = Arrays.asList<Any?>(0, "")
+                    firestore.collection("User").document(userId) //이거는 될라나? 잘 모르겠네
+                        .update("pin", pinArray)
+                        .await()
                     withContext(Dispatchers.Main) {
                         if (!isFinishing && !isDestroyed) {
-                            Toast.makeText(this@Ac0_03_pattern_setup, "패턴이 설정되었습니다", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@Ac0_04_pattern_setup, "패턴이 설정되었습니다", Toast.LENGTH_SHORT).show()
                             isSettingMode = false
                             patternView.clearPattern()
 
                             // 액티비티 전환
-                            val intent = Intent(this@Ac0_03_pattern_setup, Ac0_04_pattern_verify::class.java)
-                            startActivity(intent)
+//                            val intent = Intent(this@Ac0_04_pattern_setup, Ac0_05_pattern_verify::class.java)
+//                            startActivity(intent)
                             finish()
                         }
                     }
                 } catch (e: Exception) {
-                    Toast.makeText(this@Ac0_03_pattern_setup, "패턴 저장 실패: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@Ac0_04_pattern_setup, "패턴 저장 실패: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -122,7 +129,7 @@ private lateinit var binding: Ac003PatternCreateBinding
                         val hasPattern = patternData[0] == 1L
 
                         if (!hasPattern) {
-                            Toast.makeText(this@Ac0_03_pattern_setup, "설정된 패턴이 없습니다", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@Ac0_04_pattern_setup, "설정된 패턴이 없습니다", Toast.LENGTH_SHORT).show()
                             return@launch
                         }
 
@@ -145,17 +152,17 @@ private lateinit var binding: Ac003PatternCreateBinding
 
                         // 패턴 비교
                         if (inputPattern == savedPattern) {
-                            Toast.makeText(this@Ac0_03_pattern_setup, "패턴 인증 성공!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@Ac0_04_pattern_setup, "패턴 인증 성공!", Toast.LENGTH_SHORT).show()
                             // 여기서 다음 화면으로 이동하거나 추가 작업 수행
                         } else {
-                            Toast.makeText(this@Ac0_03_pattern_setup, "잘못된 패턴입니다", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@Ac0_04_pattern_setup, "잘못된 패턴입니다", Toast.LENGTH_SHORT).show()
                         }
                     }
 
                     patternView.clearPattern()
 
                 } catch (e: Exception) {
-                    Toast.makeText(this@Ac0_03_pattern_setup, "패턴 검증 실패: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@Ac0_04_pattern_setup, "패턴 검증 실패: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
