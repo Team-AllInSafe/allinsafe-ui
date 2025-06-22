@@ -4,12 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import com.example.allinsafe_onlyui.ac0_patternpin.Ac0_03_pattern_setup
-import com.example.allinsafe_onlyui.ac0_patternpin.Ac0_04_pattern_verify
+import com.example.allinsafe_onlyui.ac0_verify.Ac0_03_choose_pinOrPattern
 import com.example.allinsafe_onlyui.databinding.Ac001LoginBinding
 import com.google.firebase.auth.FirebaseAuth
 
-class MainActivity : ComponentActivity() {
+class Ac0_01_login : ComponentActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding:Ac001LoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,21 +20,25 @@ class MainActivity : ComponentActivity() {
         auth = FirebaseAuth.getInstance()
         // 이미 로그인된 사용자가 있는지 확인
         val currentUser = auth.currentUser
-        if (currentUser != null) {
-            // 이미 로그인되어 있으면 메인 액티비티로 이동
-//            val intent = Intent(this, Ac0MainInitMainBinding::class.java)
-//            startActivity(intent)
-            finish()
-        }
+
 
 
         binding.btnLogin.setOnClickListener {
             val email = binding.etInputId.text.toString().trim()
             val password = binding.etInputPw.text.toString().trim()
-
-            if (validateInput(email, password)) {
-                loginUser(email, password)
+            if (currentUser != null) {
+                //이미 로그인되어 있으면 메인 액티비티로 이동
+                Toast.makeText(this,"이미 로그인되어있습니다. ${currentUser.email}",Toast.LENGTH_SHORT).show()
+                nextActivity()
+                finish()
             }
+            else{
+                //currentuser가 null인 경우 : 로그인을 수행해야 하는 경우
+                if (validateInput(email, password)) {
+                    loginUser(email, password)
+                }
+            }
+
         }
         binding.btnRegister.setOnClickListener {
             val intent= Intent(this, Ac0_02_register::class.java)
@@ -43,8 +46,8 @@ class MainActivity : ComponentActivity() {
         }
         binding.tempPass.setOnClickListener {
             //새로 만든 기능/액티비티 디버깅용으로 로그인 패스하기위해 만든거지 데모에선 절대 뭐 있으면 안됩니다!
-            val intent = Intent(this, Ac0_04_pattern_verify::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, Ac0_05_pattern_verify::class.java)
+//            startActivity(intent)
         }
 
     }
@@ -85,10 +88,9 @@ class MainActivity : ComponentActivity() {
                     Toast.makeText(this, "로그인 성공: ${user?.email}", Toast.LENGTH_SHORT).show()
 
                     // 메인 액티비티로 이동
-//                    val intent = Intent(this, MainActivity::class.java)
+                    nextActivity()
+//                    val intent = Intent(this@Ac0_01_login, Ac0_04_pattern_setup::class.java)
 //                    startActivity(intent)
-                    val intent = Intent(this, Ac0_03_pattern_setup::class.java)
-                    startActivity(intent)
                     finish()
                 } else {
                     // 로그인 실패
@@ -96,5 +98,9 @@ class MainActivity : ComponentActivity() {
                         Toast.LENGTH_LONG).show()
                 }
             }
+    }
+    private fun nextActivity(){
+        val intent= Intent(this@Ac0_01_login,Ac0_03_choose_pinOrPattern::class.java)
+        startActivity(intent)
     }
 }

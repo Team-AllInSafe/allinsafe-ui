@@ -115,12 +115,12 @@ class Ac0_02_register : ComponentActivity() {
     private fun saveUserProfileToFirestore(userId: String, email: String, password: String, username: String) {
         // pattern 배열 생성: [false, 0, 0, 0, ..., 0] (boolean 1개 + int 16개)
         val pattern = mutableListOf<Any>().apply {
-            add(false) // 첫 번째 요소는 boolean false
+            add(1) // 첫 번째 요소는 boolean false
             repeat(16) { add(0) } // 나머지 16개는 int 0
         }
 
         // pin 배열 생성: [false, ""]
-        val pin = listOf(false, "")
+        val pin = listOf(0, "")
 
         // 현재 시간을 타임스탬프로 생성
         val registerDate = com.google.firebase.Timestamp.now()

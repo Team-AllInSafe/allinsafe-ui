@@ -13,6 +13,27 @@
         android:theme="@style/Theme.AllinSafe_onlyUI"
         tools:targetApi="31">
         <activity
+            android:name=".ac0_verify.Ac0_08_pinpattern_forwarding"
+            android:exported="false" />
+        <activity
+            android:name=".ac0_login.Ac0_02_register"
+            android:exported="false" />
+        <activity
+            android:name=".ac0_verify.Ac0_03_choose_pinOrPattern"
+            android:exported="false" />
+        <activity
+            android:name=".ac0_patternpin.Ac0_04_pattern_setup"
+            android:exported="false" />
+        <activity
+            android:name=".ac0_patternpin.Ac0_05_pattern_verify"
+            android:exported="false" />
+        <activity
+            android:name=".ac0_verify.Ac0_06_pin_setup"
+            android:exported="false" />
+        <activity
+            android:name=".ac0_verify.Ac0_07_pin_verify"
+            android:exported="false" />
+        <activity
             android:name=".Ac3_02_vpn_online"
             android:exported="false" />
         <activity
@@ -31,7 +52,7 @@
             android:name=".Ac5_01_spoofingdetect_init_main"
             android:exported="false" />
         <activity
-            android:name=".ac0_login.MainActivity"
+            android:name=".ac0_login.Ac0_01_login"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.AllinSafe_onlyUI">

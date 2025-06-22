@@ -57,11 +57,14 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation("androidx.constraintlayout:constraintlayout:2.2.0-alpha07")
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-analytics-ktx")
     // To use constraintlayout in compose
     implementation("androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha07")
     implementation("androidx.recyclerview:recyclerview:1.4.0")
     implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
+    implementation(platform(libs.androidx.compose.bom))//뭐지 왜 2개지? 암튼 당장은 버그는 안 나는듯
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
@@ -74,7 +77,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(platform(libs.androidx.compose.bom)) //뭐지 왜 2개지? 암튼 당장은 버그는 안 나는듯
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
